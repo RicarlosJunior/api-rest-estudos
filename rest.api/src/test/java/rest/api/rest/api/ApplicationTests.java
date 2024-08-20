@@ -1,4 +1,4 @@
-package estudo.springboot.springboot.api;
+package rest.api.rest.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
