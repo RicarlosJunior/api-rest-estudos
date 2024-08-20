@@ -1,4 +1,4 @@
-package rest.api;
+package rest.api.adv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
