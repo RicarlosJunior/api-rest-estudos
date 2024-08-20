@@ -7,5 +7,5 @@ import rest.api.adv.domain.model.AdiantamentoDespesaViagem;
 
 @Repository
 public interface AdiantamentoDespesaViagemRepository extends JpaRepository<AdiantamentoDespesaViagem, Long> {
-
+	
 }

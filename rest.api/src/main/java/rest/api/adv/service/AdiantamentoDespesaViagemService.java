@@ -1,11 +1,19 @@
 package rest.api.adv.service;
 
-import rest.api.adv.domain.model.AdiantamentoDespesaViagem;
+import java.util.List;
+
+import rest.api.adv.dto.AdiantamentoDespesaViagemDTO;
 
 public interface AdiantamentoDespesaViagemService {
 	
-	AdiantamentoDespesaViagem findById(Long id);
+	List<AdiantamentoDespesaViagemDTO> findAll();
 	
-	AdiantamentoDespesaViagem create(AdiantamentoDespesaViagem adiantamentoDespesaViagem);
+	AdiantamentoDespesaViagemDTO findById(Long id);
+	
+	AdiantamentoDespesaViagemDTO create(AdiantamentoDespesaViagemDTO adiantamentoDespesaViagem);
+	
+	void delete(Long id);
+	
+	AdiantamentoDespesaViagemDTO update(Long id, AdiantamentoDespesaViagemDTO adiantamentoDespesaViagem);
 	
 }
