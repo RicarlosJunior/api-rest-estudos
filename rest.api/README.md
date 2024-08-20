@@ -22,7 +22,7 @@ classDiagram
         -AdiantamentoDespesaViagem adiantamentoDespesaViagem
     }
 
- AdiantamentoDespesaViagem "1" *-- "0,N" Despesa
+ AdiantamentoDespesaViagem "1" *-- "0..*" Despesa
 
 ```
 
