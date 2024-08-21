@@ -70,18 +70,21 @@ public class AdiantamentoDespesaViagemServiceImpl implements AdiantamentoDespesa
 	@Transactional
 	@Override
 	public void delete(Long id) {
-		if(!adiantamentoDespesaViagemRepository.existsById(id)) {
-			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
-		}
+		
+		//Metoque que valida o Adiantamento Despesa de Viagem
+		validarAdiantamentoDespesaViagem(id);
+		
 		adiantamentoDespesaViagemRepository.deleteById(id);
 	}
+
+	
 
 	@Transactional
 	@Override
 	public AdiantamentoDespesaViagemDTO update(Long id, AdiantamentoDespesaViagemDTO adiantamentoDespesaViagemDTO) {
-		if(!adiantamentoDespesaViagemRepository.existsById(id)) {
-			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
-		}
+		
+		//Metoque que valida o Adiantamento Despesa de Viagem
+		validarAdiantamentoDespesaViagem(id);
 		
 		AdiantamentoDespesaViagem entity = adiantamentoDespesaViagemMapper.toEntity(adiantamentoDespesaViagemDTO);
 		
@@ -117,6 +120,16 @@ public class AdiantamentoDespesaViagemServiceImpl implements AdiantamentoDespesa
 		}
 		
 		adiantamentoDespesaViagemRepository.updateStatus(adv.getId(), status);
+	}
+	
+	private void validarAdiantamentoDespesaViagem(Long id) {
+		AdiantamentoDespesaViagem entity = adiantamentoDespesaViagemRepository.findById(id).orElseThrow(() -> {
+			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
+		});
+		
+		if(!entity.getStatus().equalsIgnoreCase("ABT") && !entity.getStatus().equalsIgnoreCase("PEN")) {
+			throw new BusinessException("Não é possível realizar essa operação em Adiantamento de Despesa de Viagem que não esteja em ABERTO ou PENDENTE DE FECHAMENTO");
+		}
 	}
 
 }

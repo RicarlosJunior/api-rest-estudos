@@ -49,9 +49,8 @@ public class DepesaServiceImpl implements DespesaService {
 	@Override
 	public DespesaDTO create(DespesaDTO despesaDTO) {
 		
-		AdiantamentoDespesaViagem entityADV = adiantamentoDespesaViagemRepository.findById(despesaDTO.getAdiantamentoDespesaViagemId()).orElseThrow(() -> {
-			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
-		});
+		//Metoque que valida o Adiantamento Despesa de Viagem
+		AdiantamentoDespesaViagem entityADV = validarAdiantamentoDespesaViagem(despesaDTO.getAdiantamentoDespesaViagemId());
 		
 		
 		Despesa entity = despesaMapper.toEntity(despesaDTO);
@@ -85,9 +84,13 @@ public class DepesaServiceImpl implements DespesaService {
 	@Transactional
 	@Override
 	public void delete(Long id) {
-		if(!despesaRepository.existsById(id)) {
+		Despesa entity = despesaRepository.findById(id).orElseThrow(() -> {
 			throw new BusinessException("Despesa não encontrado para esse ID");
-		}
+		});
+		
+		//Metoque que valida o Adiantamento Despesa de Viagem
+		validarAdiantamentoDespesaViagem(entity.getAdiantamentoDespesaViagem().getId());
+		
 		despesaRepository.deleteById(id);
 	}
 
@@ -98,9 +101,8 @@ public class DepesaServiceImpl implements DespesaService {
 			throw new BusinessException("Despesa não encontrado para esse ID");
 		}
 		
-		AdiantamentoDespesaViagem entityADV = adiantamentoDespesaViagemRepository.findById(despesaDTO.getAdiantamentoDespesaViagemId()).orElseThrow(() -> {
-			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
-		});
+		//Metoque que valida o Adiantamento Despesa de Viagem
+		AdiantamentoDespesaViagem entityADV = validarAdiantamentoDespesaViagem(despesaDTO.getAdiantamentoDespesaViagemId());
 		
 		Despesa entity = despesaMapper.toEntity(despesaDTO);
 		entity.setAdiantamentoDespesaViagem(entityADV);
@@ -110,6 +112,18 @@ public class DepesaServiceImpl implements DespesaService {
 		DespesaDTO dto = despesaMapper.toDTO(entity);
 		
 		return dto;
+	}
+	
+	private AdiantamentoDespesaViagem validarAdiantamentoDespesaViagem(Long id) {
+		AdiantamentoDespesaViagem entity = adiantamentoDespesaViagemRepository.findById(id).orElseThrow(() -> {
+			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
+		});
+		
+		if(!entity.getStatus().equalsIgnoreCase("ABT") && !entity.getStatus().equalsIgnoreCase("PEN")) {
+			throw new BusinessException("Não é possível realizar essa operação em Adiantamento de Despesa de Viagem que não esteja em ABERTO ou PENDENTE DE FECHAMENTO");
+		}
+		
+		return entity;
 	}
 
 }

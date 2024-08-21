@@ -73,4 +73,15 @@ public class AdiantamentoDespesaViagemController {
 	
 	}
 	
+	
+	@PutMapping("/fechar/{id}")
+	@Operation(summary = "Efetuar o fechamento de um A.D.V por id", description = "Recurso que efetua um fechamento de um adiantamento de despesa de viagens por id", tags = "ADV")
+	public ResponseEntity<AdiantamentoDespesaViagemDTO> efetuarFechamento(@PathVariable("id") Long id){
+		adiantamentoDespesaViagemService.efetuarFechamento(id);
+		return ResponseEntity.ok().build();
+	}
+	
+	
+	
+	
 }
