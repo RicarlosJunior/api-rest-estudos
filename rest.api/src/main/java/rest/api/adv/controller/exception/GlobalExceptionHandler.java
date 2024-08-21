@@ -21,14 +21,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	
-	@ExceptionHandler(NoSuchElementException.class)
-	public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException noSuchElementException){
-		return new ResponseEntity<>("Recurso não encontrado", HttpStatus.NOT_FOUND);
-	}
-	
-	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException illegalArgumentException){
-		return new ResponseEntity<>("Argumento Ilegal", HttpStatus.UNPROCESSABLE_ENTITY);
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<String> handleIllegalArgumentException(BusinessException businessException){
+		return new ResponseEntity<>(businessException.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 }

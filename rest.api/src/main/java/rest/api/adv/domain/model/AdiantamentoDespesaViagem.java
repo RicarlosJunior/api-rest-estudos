@@ -10,8 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
-@Entity(name = "tb_adiantamento_despesa_viagem")
+@Entity
+@Table(name = "tb_adiantamento_despesa_viagem")
 public class AdiantamentoDespesaViagem {
 	
 	@Id
@@ -20,8 +22,10 @@ public class AdiantamentoDespesaViagem {
 	
 	private Integer numero;
 	
+	@Column(length = 100)
 	private String nomeColaborador;
 	
+	@Column(length = 3)
 	private String status;
 	
 	@Column(precision = 13, scale = 2)

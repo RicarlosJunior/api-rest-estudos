@@ -16,4 +16,6 @@ public interface AdiantamentoDespesaViagemService {
 	
 	AdiantamentoDespesaViagemDTO update(Long id, AdiantamentoDespesaViagemDTO adiantamentoDespesaViagem);
 	
+	void efetuarFechamento(Long id);
+	
 }

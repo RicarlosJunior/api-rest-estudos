@@ -1,10 +1,12 @@
 package rest.api.adv.service;
 
+import java.util.List;
+
 import rest.api.adv.dto.DespesaDTO;
 
 public interface DespesaService {
 	
-	Iterable<DespesaDTO> findAll();
+	List<DespesaDTO> findAll();
 	
 	DespesaDTO findById(Long id);
 	

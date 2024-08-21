@@ -17,7 +17,7 @@ public class DespesaMapper {
         dto.setNumero(entity.getNumero());
         dto.setDescricao(entity.getDescricao());
         dto.setValor(entity.getValor());
-        //dto.setAdiantamentoDespesaViagem(convertToDTO(despesa.getAdiantamentoDespesaViagem()));
+        dto.setAdiantamentoDespesaViagemId(entity.getAdiantamentoDespesaViagem().getId());
         return dto;
     }
 
@@ -30,7 +30,6 @@ public class DespesaMapper {
         despesa.setNumero(dto.getNumero());
         despesa.setDescricao(dto.getDescricao());
         despesa.setValor(dto.getValor());
-        //despesa.setAdiantamentoDespesaViagem(convertToEntity(dto.getAdiantamentoDespesaViagem()));
         return despesa;
     }
 	

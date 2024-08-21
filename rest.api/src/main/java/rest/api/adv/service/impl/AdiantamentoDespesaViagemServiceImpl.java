@@ -1,13 +1,15 @@
 package rest.api.adv.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import rest.api.adv.controller.exception.BusinessException;
 import rest.api.adv.domain.model.AdiantamentoDespesaViagem;
+import rest.api.adv.domain.model.Despesa;
 import rest.api.adv.domain.repository.AdiantamentoDespesaViagemRepository;
 import rest.api.adv.dto.AdiantamentoDespesaViagemDTO;
 import rest.api.adv.dto.mapper.AdiantamentoDespesaViagemMapper;
@@ -32,7 +34,9 @@ public class AdiantamentoDespesaViagemServiceImpl implements AdiantamentoDespesa
 	@Override
 	public AdiantamentoDespesaViagemDTO findById(Long id) {
 		
-		AdiantamentoDespesaViagem entity = adiantamentoDespesaViagemRepository.findById(id).orElseThrow(NoSuchElementException::new);
+		AdiantamentoDespesaViagem entity = adiantamentoDespesaViagemRepository.findById(id).orElseThrow(() -> {
+			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
+		});
 		
 		AdiantamentoDespesaViagemDTO dto = adiantamentoDespesaViagemMapper.toDTO(entity);
 
@@ -67,7 +71,7 @@ public class AdiantamentoDespesaViagemServiceImpl implements AdiantamentoDespesa
 	@Override
 	public void delete(Long id) {
 		if(!adiantamentoDespesaViagemRepository.existsById(id)) {
-			throw new NoSuchElementException();
+			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
 		}
 		adiantamentoDespesaViagemRepository.deleteById(id);
 	}
@@ -76,7 +80,7 @@ public class AdiantamentoDespesaViagemServiceImpl implements AdiantamentoDespesa
 	@Override
 	public AdiantamentoDespesaViagemDTO update(Long id, AdiantamentoDespesaViagemDTO adiantamentoDespesaViagemDTO) {
 		if(!adiantamentoDespesaViagemRepository.existsById(id)) {
-			throw new NoSuchElementException();
+			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
 		}
 		
 		AdiantamentoDespesaViagem entity = adiantamentoDespesaViagemMapper.toEntity(adiantamentoDespesaViagemDTO);
@@ -86,6 +90,33 @@ public class AdiantamentoDespesaViagemServiceImpl implements AdiantamentoDespesa
 		AdiantamentoDespesaViagemDTO dto = adiantamentoDespesaViagemMapper.toDTO(entity);
 		
 		return dto;
+	}
+
+	@Transactional
+	@Override
+	public void efetuarFechamento(Long id) {
+		
+		AdiantamentoDespesaViagem adv = adiantamentoDespesaViagemRepository.findById(id).orElseThrow(() -> {
+			throw new BusinessException("Adiantamento de Despesa de Viagem não encontrado para esse ID");
+		});
+		
+		if(adv.getDespesas() == null || adv.getDespesas().isEmpty()) {
+			throw new BusinessException("Não existe Despesas Lançadas para esse Adiantamento de Despesa de Viagem");
+		}
+		
+		
+		BigDecimal valorTotalDespesa = adv.getDespesas().stream()
+				.map(Despesa::getValor) // Mapeia a lista de Despesa para uma lista de BigDecimal
+				.reduce(BigDecimal.ZERO, (total, valor) -> total.add(valor));
+		
+		String status = "REG"; //Fechamento regular
+		if(adv.getValor().compareTo(valorTotalDespesa) != 0) {
+			
+			status = "IRG"; //Fechamento irregular
+			
+		}
+		
+		adiantamentoDespesaViagemRepository.updateStatus(adv.getId(), status);
 	}
 
 }

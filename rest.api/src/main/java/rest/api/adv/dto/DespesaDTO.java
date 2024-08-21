@@ -8,21 +8,22 @@ public class DespesaDTO {
 	private Integer numero;
 	private String descricao;
 	private BigDecimal valor;
-	private AdiantamentoDespesaViagemDTO adiantamentoDespesaViagem;
+	private Long adiantamentoDespesaViagemId;
 	
 	public DespesaDTO() {
-		this.adiantamentoDespesaViagem = new AdiantamentoDespesaViagemDTO();
+		
 	}
 	
 	
 	
 	public DespesaDTO(Long id, Integer numero, String descricao, BigDecimal valor,
-			AdiantamentoDespesaViagemDTO adiantamentoDespesaViagem) {
+			Long adiantamentoDespesaViagemId) {
 		this.id = id;
 		this.numero = numero;
 		this.descricao = descricao;
 		this.valor = valor;
-		this.adiantamentoDespesaViagem = adiantamentoDespesaViagem;
+		this.adiantamentoDespesaViagemId = adiantamentoDespesaViagemId;
+		
 	}
 
 
@@ -52,11 +53,12 @@ public class DespesaDTO {
 		this.valor = valor;
 	}
 
-	public AdiantamentoDespesaViagemDTO getAdiantamentoDespesaViagem() {
-		return adiantamentoDespesaViagem;
+	public Long getAdiantamentoDespesaViagemId() {
+		return adiantamentoDespesaViagemId;
 	}
-	public void setAdiantamentoDespesaViagem(AdiantamentoDespesaViagemDTO adiantamentoDespesaViagem) {
-		this.adiantamentoDespesaViagem = adiantamentoDespesaViagem;
+
+	public void setAdiantamentoDespesaViagemId(Long adiantamentoDespesaViagemId) {
+		this.adiantamentoDespesaViagemId = adiantamentoDespesaViagemId;
 	}
 	
 }
