@@ -10,6 +10,7 @@
 - Java 17
 - Git/GitHub
 - Spring Boot 3
+- Spring Web
 - Spring Data JPA
 - H2
 - Postgres
