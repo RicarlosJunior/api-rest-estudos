@@ -1,8 +1,20 @@
 # API  (Adiantamento de Despesa de Viagem)
 
-- Essa é uma API de estudo desenvolvidda com Spring Boot 3 e seus starters (Spring Web, Spring Data JPA) aplicando as premissas de IoC (Inversão de Controle) e Injeção de Dependência.
- API RESTFul, seguindo os principios do paradgma orientado a objetos, testada e documentada utilizando OpenAPI(Swagger)
+- Essa é uma API Java RESTFul, que foi desenvolvida simulando um cenário onde as organizações/empresas disponibilizam recursos financeiros
+  para seus colaboradores viajarem (a trabalho), custeando assim despesas com hotéis, refeições, locomoção, etc.
+  Isso possibilita que essas despesas sejam lançadas e armazenadas na base de dados para enventuais auditorias.
 
+## Tecnologias utilizadas
+
+- Java 17
+- Git/GitHub
+- Spring Boot 3
+- Spring Data JPA
+- H2
+- Postgres
+- OpenAPI (Swagger)
+- Railway
+  
 ## Diagrama de classe 
 
 ```mermaid
