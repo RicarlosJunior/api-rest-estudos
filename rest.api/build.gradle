@@ -30,6 +30,12 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+tasks.jar {
+	manifest {
+		attributes["Main-Class"] = "rest.api.adv.Application"
+	}
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
