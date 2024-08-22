@@ -5,7 +5,7 @@
   para seus colaboradores viajarem (a trabalho), custeando assim despesas com hotéis, refeições, locomoção, etc.
   Isso possibilita que essas despesas sejam lançadas e armazenadas na base de dados para enventuais auditorias.
 
- - [Visite a API via Swagger](http://api-adv.up.railway.app/swagger-ui.html)
+ - [Visite a API via Swagger clicando aqui](http://api-adv.up.railway.app/swagger-ui.html)
 
 ## Tecnologias utilizadas
 
