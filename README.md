@@ -4,7 +4,8 @@
 - Essa é uma API Java RESTFul, que foi desenvolvida simulando um cenário onde as organizações/empresas disponibilizam recursos financeiros
   para seus colaboradores viajarem (a trabalho), custeando assim despesas com hotéis, refeições, locomoção, etc.
   Isso possibilita que essas despesas sejam lançadas e armazenadas na base de dados para enventuais auditorias.
-- [Para acessar a API via Swagger clique]([URL do Link](http://api-adv.up.railway.app/swagger-ui.html))  
+
+ - [Visite a API via Swagger](http://api-adv.up.railway.app/swagger-ui.html)
 
 ## Tecnologias utilizadas
 
