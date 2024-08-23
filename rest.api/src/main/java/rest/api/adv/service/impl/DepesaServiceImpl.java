@@ -12,21 +12,20 @@ import rest.api.adv.domain.model.Despesa;
 import rest.api.adv.domain.repository.AdiantamentoDespesaViagemRepository;
 import rest.api.adv.domain.repository.DespesaRepository;
 import rest.api.adv.dto.DespesaDTO;
-import rest.api.adv.dto.mapper.DespesaMapper;
 import rest.api.adv.service.DespesaService;
 
 @Service
 public class DepesaServiceImpl implements DespesaService {
 
-	private final DespesaMapper despesaMapper;
 
 	private final DespesaRepository despesaRepository;
 	
 	private final AdiantamentoDespesaViagemRepository adiantamentoDespesaViagemRepository;
 
-	public DepesaServiceImpl(DespesaMapper despesaMapper, DespesaRepository despesaRepository,
-			AdiantamentoDespesaViagemRepository adiantamentoDespesaViagemRepository) {
-		this.despesaMapper = despesaMapper;
+	public DepesaServiceImpl(DespesaRepository despesaRepository,
+							AdiantamentoDespesaViagemRepository adiantamentoDespesaViagemRepository) {
+		
+		
 		this.despesaRepository = despesaRepository;
 		this.adiantamentoDespesaViagemRepository = adiantamentoDespesaViagemRepository;
 	}
@@ -39,9 +38,7 @@ public class DepesaServiceImpl implements DespesaService {
 			throw new BusinessException("Despesa não encontrado para esse ID");
 		});
 		
-		DespesaDTO dto = despesaMapper.toDTO(entity);
-
-		return dto;
+		return new DespesaDTO(entity);
 		
 	}
 
@@ -50,10 +47,10 @@ public class DepesaServiceImpl implements DespesaService {
 	public DespesaDTO create(DespesaDTO despesaDTO) {
 		
 		//Metoque que valida o Adiantamento Despesa de Viagem
-		AdiantamentoDespesaViagem entityADV = validarAdiantamentoDespesaViagem(despesaDTO.getAdiantamentoDespesaViagemId());
+		AdiantamentoDespesaViagem entityADV = validarAdiantamentoDespesaViagem(despesaDTO.adiantamentoDespesaViagemId());
 		
 		
-		Despesa entity = despesaMapper.toEntity(despesaDTO);
+		Despesa entity = despesaDTO.toEntity();
 		entity.setAdiantamentoDespesaViagem(entityADV);
 		
 		entity = despesaRepository.save(entity);
@@ -64,9 +61,7 @@ public class DepesaServiceImpl implements DespesaService {
 			adiantamentoDespesaViagemRepository.updateStatus(entity.getId(), "PEN"); 
 		}
 		
-		DespesaDTO dto = despesaMapper.toDTO(entity);
-		
-		return dto;
+		return new DespesaDTO(entity);
 	}
 	
 	@Transactional(readOnly = true)
@@ -75,9 +70,9 @@ public class DepesaServiceImpl implements DespesaService {
 		
 		List<Despesa> entitys = despesaRepository.findAll();
 		
-		List<DespesaDTO> dtos = entitys.stream().map(despesaMapper::toDTO).collect(Collectors.toList());
+		return entitys.stream().map(DespesaDTO::new).collect(Collectors.toList());
 		
-		return dtos;
+	
 	}
 
 
@@ -102,16 +97,14 @@ public class DepesaServiceImpl implements DespesaService {
 		}
 		
 		//Metoque que valida o Adiantamento Despesa de Viagem
-		AdiantamentoDespesaViagem entityADV = validarAdiantamentoDespesaViagem(despesaDTO.getAdiantamentoDespesaViagemId());
+		AdiantamentoDespesaViagem entityADV = validarAdiantamentoDespesaViagem(despesaDTO.adiantamentoDespesaViagemId());
 		
-		Despesa entity = despesaMapper.toEntity(despesaDTO);
+		Despesa entity = despesaDTO.toEntity();
 		entity.setAdiantamentoDespesaViagem(entityADV);
 		
 		entity = despesaRepository.save(entity);
 		
-		DespesaDTO dto = despesaMapper.toDTO(entity);
-		
-		return dto;
+		return new DespesaDTO(entity);
 	}
 	
 	private AdiantamentoDespesaViagem validarAdiantamentoDespesaViagem(Long id) {

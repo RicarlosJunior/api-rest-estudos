@@ -43,7 +43,7 @@ public class AdiantamentoDespesaViagemController {
 		var advDTO = adiantamentoDespesaViagemService.create(adiantamentoDespesaViagemDTO);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
-				.buildAndExpand(advDTO.getId())
+				.buildAndExpand(advDTO.id())
 				.toUri();
 		return ResponseEntity.created(location).body(advDTO);
 	}

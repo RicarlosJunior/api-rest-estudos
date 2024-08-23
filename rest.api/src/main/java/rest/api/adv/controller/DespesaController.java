@@ -43,7 +43,7 @@ public class DespesaController {
 		var despesaDTOCreated = despesaService.create(despesaDTO);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
-				.buildAndExpand(despesaDTOCreated.getId())
+				.buildAndExpand(despesaDTOCreated.id())
 				.toUri();
 		return ResponseEntity.created(location).body(despesaDTOCreated);
 	}
