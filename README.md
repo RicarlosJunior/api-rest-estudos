@@ -6,8 +6,8 @@
   Isso possibilita que essas despesas sejam lançadas e armazenadas na base de dados para enventuais auditorias.
 
  - [Visite a API via Swagger clicando aqui](http://api-adv.up.railway.app/swagger-ui.html)
-   Username:user
-   Password:123456
+   - Username:user
+   - Password:123456
 
 ## Tecnologias utilizadas
 
