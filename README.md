@@ -17,7 +17,7 @@
 - Spring Web
 - Spring Data JPA
 - Spring Security
-- H2
+- H2 (Banco de dados em memória para desenvolvimento)
 - Postgres
 - OpenAPI (Swagger)
 - Railway
