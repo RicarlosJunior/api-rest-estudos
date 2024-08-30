@@ -16,6 +16,7 @@
 - Spring Boot 3
 - Spring Web
 - Spring Data JPA
+- Spring Security
 - H2
 - Postgres
 - OpenAPI (Swagger)
