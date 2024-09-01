@@ -1,7 +1,5 @@
 package rest.api.adv.controller.exception;
 
-import java.util.NoSuchElementException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
